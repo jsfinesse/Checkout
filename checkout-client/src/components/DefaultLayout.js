@@ -7,6 +7,7 @@ import {
     VideoCameraOutlined,
     UploadOutlined,
 } from "@ant-design/icons";
+import "../resources/layout.css";
 
 const { Header, Sider, Content } = Layout;
 
@@ -49,7 +50,7 @@ export default class DefaultLayout extends React.Component {
                 <Layout className="site-layout">
                     <Header
                         className="site-layout-background"
-                        style={{ padding: 0 }}
+                        style={{ padding: 10 }}
                     >
                         {React.createElement(
                             this.state.collapsed
@@ -64,7 +65,7 @@ export default class DefaultLayout extends React.Component {
                     <Content
                         className="site-layout-background"
                         style={{
-                            margin: "24px 16px",
+                            margin: "10px",
                             padding: 24,
                             minHeight: 280,
                         }}
