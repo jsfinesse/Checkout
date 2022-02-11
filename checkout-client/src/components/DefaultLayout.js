@@ -4,10 +4,13 @@ import {
     MenuUnfoldOutlined,
     MenuFoldOutlined,
     UserOutlined,
-    VideoCameraOutlined,
-    UploadOutlined,
+    HomeOutlined,
+    SnippetsOutlined,
+    UnorderedListOutlined,
+    LogoutOutlined,
 } from "@ant-design/icons";
 import "../resources/layout.css";
+import { Link } from "react-router-dom";
 
 const { Header, Sider, Content } = Layout;
 
@@ -30,20 +33,31 @@ export default class DefaultLayout extends React.Component {
                     collapsible
                     collapsed={this.state.collapsed}
                 >
-                    <div className="logo" />
+                    <div className="logo">
+                        <p>Checkout</p>
+                    </div>
                     <Menu
                         theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={["1"]}
+                        defaultSelectedKeys={window.location.pathname}
                     >
-                        <Menu.Item key="1" icon={<UserOutlined />}>
-                            nav 1
+                        <Menu.Item key="/home" icon={<HomeOutlined />}>
+                            <Link to="/home">Home</Link>
                         </Menu.Item>
-                        <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                            nav 2
+                        <Menu.Item key="/bills" icon={<SnippetsOutlined />}>
+                            <Link to="/bills">Bills</Link>
                         </Menu.Item>
-                        <Menu.Item key="3" icon={<UploadOutlined />}>
-                            nav 3
+                        <Menu.Item
+                            key="/items"
+                            icon={<UnorderedListOutlined />}
+                        >
+                            <Link to="/items">Items</Link>
+                        </Menu.Item>
+                        <Menu.Item key="/customers" icon={<UserOutlined />}>
+                            <Link to="/customers">Customers</Link>
+                        </Menu.Item>
+                        <Menu.Item key="/logout" icon={<LogoutOutlined />}>
+                            Logout
                         </Menu.Item>
                     </Menu>
                 </Sider>
