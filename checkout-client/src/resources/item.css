@@ -1,0 +1,22 @@
+.item {
+    box-shadow: 0 0 3px #ccc;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.item .name {
+    color: black;
+    font-size: 20px;
+}
+
+.item .price {
+    text-align: center;
+    color: #2BC2FF;
+    font-size: 20px;
+}
+
+.item button {
+    margin-top: 10px;
+    background-color: #3ED28D !important;
+    color: whitesmoke;
+}
