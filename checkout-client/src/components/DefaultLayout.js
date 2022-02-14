@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Menu } from "antd";
 import {
     MenuUnfoldOutlined,
@@ -23,6 +23,10 @@ const DefaultLayout = (props) => {
     const toggle = () => {
         setCollapsed(!collapsed);
     };
+
+    useEffect(() => {
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+    }, [cartItems]);
 
     return (
         <Layout>
@@ -65,7 +69,9 @@ const DefaultLayout = (props) => {
                         }
                     )}
                     <div className="cart-count d-flex align-items-center">
-                        <b><p className="mt-3 mr-2">{cartItems.length}</p></b>
+                        <b>
+                            <p className="mt-3 mr-2">{cartItems.length}</p>
+                        </b>
                         <ShoppingCartOutlined />
                     </div>
                 </Header>
