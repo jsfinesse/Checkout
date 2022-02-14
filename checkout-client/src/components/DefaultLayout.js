@@ -75,6 +75,9 @@ export default class DefaultLayout extends React.Component {
                                 onClick: this.toggle,
                             }
                         )}
+                        <div className="cart-count">
+
+                        </div>
                     </Header>
                     <Content
                         className="site-layout-background"
