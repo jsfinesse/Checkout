@@ -26,6 +26,16 @@ const rootReducer = (state = initialState, action) => {
                     (item) => item._id !== action.payload._id
                 ),
             };
+        case "showLoading":
+            return {
+                ...state,
+                loading: true,
+            };
+        case "hideLoading":
+            return {
+                ...state,
+                loading: false,
+            };
         default:
             return state;
     }

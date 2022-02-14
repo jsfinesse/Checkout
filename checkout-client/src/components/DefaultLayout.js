@@ -19,7 +19,7 @@ const { Header, Sider, Content } = Layout;
 const DefaultLayout = (props) => {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState(false);
-    const { cartItems } = useSelector((state) => state.rootReducer);
+    const { cartItems, loading } = useSelector((state) => state.rootReducer);
 
     const toggle = () => {
         setCollapsed(!collapsed);
@@ -31,6 +31,11 @@ const DefaultLayout = (props) => {
 
     return (
         <Layout>
+            {loading && (
+                <div className="spinner">
+                    <div class="spinner-border" role="status"></div>
+                </div>
+            )}
             <Sider trigger={null} collapsible collapsed={collapsed}>
                 <div className="logo">
                     <p>Checkout</p>
