@@ -61,3 +61,7 @@
 .ant-menu-item-selected {
     background-color: #2BC2FF !important;
 }
+
+.cart-count {
+    cursor: pointer;
+}
