@@ -25,7 +25,7 @@ function Homepage() {
 
     useEffect(() => {
         getAllItems();
-    });
+    }, []);
 
     return (
         <DefaultLayout>

@@ -11,18 +11,18 @@
 
 .item .price {
     text-align: center;
-    color: #2BC2FF;
+    color: #2bc2ff;
     font-size: 20px;
 }
 
 .item button {
     margin-top: 10px;
-    background-color: #3ED28D !important;
+    background-color: #3ed28d !important;
     color: whitesmoke;
 }
 
 input {
-    border: 1px solid #3ED28D;
+    border: 1px solid #3ed28d;
     box-shadow: none !important;
     outline: none !important;
 }
@@ -31,7 +31,7 @@ input:focus {
     outline: none !important;
 }
 .ant-select-selector {
-    border: 1px solid #3ED28D;
+    border: 1px solid #3ed28d;
     box-shadow: none !important;
     outline: none !important;
 }

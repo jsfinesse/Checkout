@@ -26,7 +26,7 @@ function Items() {
 
     useEffect(() => {
         getAllItems();
-    });
+    }, []);
 
     const columns = [
         {
@@ -63,7 +63,7 @@ function Items() {
     const onFinish = async (values) => {
         dispatch({ type: "showLoading" });
         try {
-            const res = await axios.post("/api/items/add-item", values);
+            await axios.post("/api/items/add-item", values);
             dispatch({ type: "hideLoading" });
         } catch (error) {
             dispatch({ type: "hideLoading" });
