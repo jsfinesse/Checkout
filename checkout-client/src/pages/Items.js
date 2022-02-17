@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { Table, Button, Modal, Form, Input, Select } from "antd";
+import { Table, Button, Modal, Form, Input, Select, message } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 import DefaultLayout from "../components/DefaultLayout";
-import "../resources/item.css"
+import "../resources/item.css";
 
 function Items() {
     const [itemsData, setItemsData] = useState([]);
@@ -65,8 +65,12 @@ function Items() {
         try {
             await axios.post("/api/items/add-item", values);
             dispatch({ type: "hideLoading" });
+            message.success("Item added successfully");
+            setAddEditModalVisible(false);
+            getAllItems();
         } catch (error) {
             dispatch({ type: "hideLoading" });
+            message.error("Something went wrong :(");
             console.log(error);
         }
     };
