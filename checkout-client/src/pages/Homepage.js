@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import DefaultLayout from "../components/DefaultLayout";
 import Item from "../components/Item";
-import "../resources/item.css";
+import "../resources/item.css"
 
 function Homepage() {
     const [itemsData, setItemsData] = useState([]);

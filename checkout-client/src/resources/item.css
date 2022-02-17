@@ -22,7 +22,7 @@
 }
 
 input {
-    border: 1px solid #3ed28d;
+    border: 1px solid #3ed28d !important;
     box-shadow: none !important;
     outline: none !important;
 }
@@ -31,7 +31,7 @@ input:focus {
     outline: none !important;
 }
 .ant-select-selector {
-    border: 1px solid #3ed28d;
+    border: 1px solid #3ed28d !important;
     box-shadow: none !important;
     outline: none !important;
 }
