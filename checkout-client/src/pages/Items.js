@@ -25,6 +25,20 @@ function Items() {
         }
     };
 
+    const deleteItem = async (record) => {
+        dispatch({ type: "showLoading" });
+        try {
+            await axios.post("/api/items/delete-item", { itemId: record._id });
+            dispatch({ type: "hideLoading" });
+            message.success("Item deleted successfully");
+            getAllItems();
+        } catch (error) {
+            dispatch({ type: "hideLoading" });
+            message.error("Something went wrong :(");
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         getAllItems();
     }, []);
@@ -61,7 +75,10 @@ function Items() {
                             setAddEditModalVisible(true);
                         }}
                     />
-                    <DeleteOutlined className="mx-2" />
+                    <DeleteOutlined
+                        className="mx-2"
+                        onClick={() => deleteItem(record)}
+                    />
                 </div>
             ),
         },

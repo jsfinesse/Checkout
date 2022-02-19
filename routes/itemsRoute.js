@@ -31,4 +31,13 @@ router.post("/edit-item", async (req, res) => {
     }
 });
 
+router.post("/delete-item", async (req, res) => {
+    try {
+        await Item.findOneAndDelete({ _id: req.body.itemId });
+        res.send();
+    } catch (error) {
+        res.status(400).send();
+    }
+});
+
 module.exports = router;
