@@ -22,4 +22,13 @@ router.post("/add-item", async (req, res) => {
     }
 });
 
+router.post("/edit-item", async (req, res) => {
+    try {
+        await Item.findOneAndUpdate({ _id: req.body.itemId }, req.body);
+        res.send();
+    } catch (error) {
+        res.status(400).send();
+    }
+});
+
 module.exports = router;

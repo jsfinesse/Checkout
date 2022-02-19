@@ -10,6 +10,7 @@ import "../resources/item.css";
 function Items() {
     const [itemsData, setItemsData] = useState([]);
     const [addEditModalVisible, setAddEditModalVisible] = useState(false);
+    const [editingItem, setEditingItem] = useState(null);
     const dispatch = useDispatch();
 
     const getAllItems = async () => {
@@ -53,8 +54,14 @@ function Items() {
             dataIndex: "_id",
             render: (id, record) => (
                 <div className="d-flex">
+                    <EditOutlined
+                        className="mx-2"
+                        onClick={() => {
+                            setEditingItem(record);
+                            setAddEditModalVisible(true);
+                        }}
+                    />
                     <DeleteOutlined className="mx-2" />
-                    <EditOutlined className="mx-2" />
                 </div>
             ),
         },
@@ -62,16 +69,34 @@ function Items() {
 
     const onFinish = async (values) => {
         dispatch({ type: "showLoading" });
-        try {
-            await axios.post("/api/items/add-item", values);
-            dispatch({ type: "hideLoading" });
-            message.success("Item added successfully");
-            setAddEditModalVisible(false);
-            getAllItems();
-        } catch (error) {
-            dispatch({ type: "hideLoading" });
-            message.error("Something went wrong :(");
-            console.log(error);
+        if (editingItem === null) {
+            try {
+                await axios.post("/api/items/add-item", values);
+                dispatch({ type: "hideLoading" });
+                message.success("Item added successfully");
+                setAddEditModalVisible(false);
+                getAllItems();
+            } catch (error) {
+                dispatch({ type: "hideLoading" });
+                message.error("Something went wrong :(");
+                console.log(error);
+            }
+        } else {
+            try {
+                await axios.post("/api/items/edit-item", {
+                    ...values,
+                    itemId: editingItem._id,
+                });
+                dispatch({ type: "hideLoading" });
+                message.success("Item edited successfully");
+                setEditingItem(null);
+                setAddEditModalVisible(false);
+                getAllItems();
+            } catch (error) {
+                dispatch({ type: "hideLoading" });
+                message.error("Something went wrong :(");
+                console.log(error);
+            }
         }
     };
 
@@ -88,38 +113,49 @@ function Items() {
             </div>
             <Table columns={columns} dataSource={itemsData} bordered />
 
-            <Modal
-                onCancel={() => setAddEditModalVisible(false)}
-                visible={addEditModalVisible}
-                title="Add Item"
-                footer={false}
-            >
-                <Form layout="vertical" onFinish={onFinish}>
-                    <Form.Item name="name" label="Name">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name="price" label="Price">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name="image" label="Image URL">
-                        <Input />
-                    </Form.Item>
-                    <Form.Item name="category" label="Category">
-                        <Select>
-                            <Select.Option value="fruits">Fruits</Select.Option>
-                            <Select.Option value="vegetables">
-                                Vegetables
-                            </Select.Option>
-                        </Select>
-                    </Form.Item>
+            {addEditModalVisible && (
+                <Modal
+                    onCancel={() => {
+                        setEditingItem(null);
+                        setAddEditModalVisible(false);
+                    }}
+                    visible={addEditModalVisible}
+                    title={`${editingItem !== null ? "Edit Item" : "Add Item"}`}
+                    footer={false}
+                >
+                    <Form
+                        initialValues={editingItem}
+                        layout="vertical"
+                        onFinish={onFinish}
+                    >
+                        <Form.Item name="name" label="Name">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="price" label="Price">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="image" label="Image URL">
+                            <Input />
+                        </Form.Item>
+                        <Form.Item name="category" label="Category">
+                            <Select>
+                                <Select.Option value="fruits">
+                                    Fruits
+                                </Select.Option>
+                                <Select.Option value="vegetables">
+                                    Vegetables
+                                </Select.Option>
+                            </Select>
+                        </Form.Item>
 
-                    <div className="d-flex jutify-content-end">
-                        <Button htmlType="submit" type="primary">
-                            SAVE
-                        </Button>
-                    </div>
-                </Form>
-            </Modal>
+                        <div className="d-flex justify-content-end">
+                            <Button htmlType="submit" type="primary">
+                                SAVE
+                            </Button>
+                        </div>
+                    </Form>
+                </Modal>
+            )}
         </DefaultLayout>
     );
 }
