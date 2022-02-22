@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { Button, Form, Input, message, Row, Col } from "antd";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import "../resources/authentication.css";
 
 function Register() {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const onFinish = async (values) => {
         dispatch({ type: "showLoading" });
         try {
@@ -21,6 +22,12 @@ function Register() {
             message.error("Something went wrong :(");
         }
     };
+
+    useEffect(() => {
+        if (localStorage.getItem("checkout-user")) {
+            navigate("/home");
+        }
+    }, []);
 
     return (
         <div className="authentication">

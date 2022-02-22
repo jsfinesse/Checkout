@@ -14,7 +14,7 @@ router.post("/login", async (req, res) => {
             req.body.userId,
             req.body.password,
             );
-        res.send();
+        res.send(user);
     } catch (error) {
         res.status(400).send();
     }
