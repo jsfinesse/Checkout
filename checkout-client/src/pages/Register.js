@@ -1,13 +1,27 @@
 import React from "react";
+import axios from "axios";
 import { Button, Form, Input, message, Row, Col } from "antd";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import "../resources/authentication.css";
 
 function Register() {
-    const onFinish = (values) => {
-        console.log(values);
+    const dispatch = useDispatch();
+    const onFinish = async (values) => {
+        dispatch({ type: "showLoading" });
+        try {
+            await axios.post("/api/users/register", values);
+            dispatch({ type: "hideLoading" });
+            message.success(
+                "Registered successfully, please wait while we verify you!"
+            );
+        } catch (error) {
+            dispatch({ type: "hideLoading" });
+            message.error("Something went wrong :(");
+        }
     };
+
     return (
         <div className="authentication">
             <Row>
@@ -21,7 +35,7 @@ function Register() {
                         <Form.Item name="name" label="Name">
                             <Input />
                         </Form.Item>
-                        <Form.Item name="userid" label="User ID">
+                        <Form.Item name="userId" label="User ID">
                             <Input />
                         </Form.Item>
                         <Form.Item name="password" label="Password">
