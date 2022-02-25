@@ -48,6 +48,9 @@ const DefaultLayout = (props) => {
                     <Menu.Item key="/home" icon={<HomeOutlined />}>
                         <Link to="/home">Home</Link>
                     </Menu.Item>
+                    <Menu.Item key="/cart" icon={<ShoppingCartOutlined />}>
+                        <Link to="/cart">Cart</Link>
+                    </Menu.Item>
                     <Menu.Item key="/bills" icon={<SnippetsOutlined />}>
                         <Link to="/bills">Bills</Link>
                     </Menu.Item>
