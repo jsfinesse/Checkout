@@ -13,4 +13,13 @@ router.post("/charge-bill", async (req, res) => {
     }
 });
 
+router.get("/get-user-bills", async (req, res) => {
+    try {
+        const bills = await Bill.find({ userId: req.query.userId });
+        res.send(bills);
+    } catch (error) {
+        res.status(400).send();
+    }
+});
+
 module.exports = router;

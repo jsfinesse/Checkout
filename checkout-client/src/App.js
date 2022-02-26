@@ -7,6 +7,7 @@ import Items from "./pages/Items";
 import CartPage from "./pages/CartPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Bills from "./pages/Bills";
 
 function App() {
     return (
@@ -34,6 +35,14 @@ function App() {
                         element={
                             <ProtectedRoute>
                                 <CartPage />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/bills"
+                        element={
+                            <ProtectedRoute>
+                                <Bills />
                             </ProtectedRoute>
                         }
                     />

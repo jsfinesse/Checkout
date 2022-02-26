@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { Table, Button, Modal, Form, Input, Select, message } from "antd";
 import {
@@ -85,7 +86,7 @@ function CartPage() {
         setSubTotal(temp);
     }, [cartItems]);
 
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
         const requestObject = {
             ...values,
             subTotal,
@@ -94,8 +95,12 @@ function CartPage() {
             total: Number((subTotal + subTotal / 20).toFixed(2)),
             userId: JSON.parse(localStorage.getItem("checkout-user"))._id,
         };
-
-        console.log(requestObject);
+        try {
+            await axios.post("/api/bills/charge-bill", requestObject);
+            message.success("Thanks for shopping!");
+        } catch (error) {
+            message.error("Something went wrong :(");
+        }
     };
 
     return (
