@@ -5,7 +5,6 @@ import { Table, Button, Modal, Form, Input, Select, message } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 import DefaultLayout from "../components/DefaultLayout";
-import "../resources/item.css";
 
 function Items() {
     const [itemsData, setItemsData] = useState([]);

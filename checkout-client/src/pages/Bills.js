@@ -1,13 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { Table, Button, Modal, Form, Input, Select, message } from "antd";
-import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
+import { Table, Button, Modal, message } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
+import ReactToPrint, { useReactToPrint } from "react-to-print";
 
 import DefaultLayout from "../components/DefaultLayout";
-import "../resources/item.css";
 
 function Bills() {
+    const componentRef = useRef();
     const [billsData, setBillsData] = useState([]);
     const [printBillModalVisible, setPrintBillModalVisible] = useState(false);
     const [selectedBill, setSelectedBill] = useState(null);
@@ -97,6 +98,10 @@ function Bills() {
         },
     ];
 
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    });
+
     return (
         <DefaultLayout>
             <div className="d-flex justify-content-between">
@@ -114,7 +119,7 @@ function Bills() {
                     footer={false}
                     width={800}
                 >
-                    <div className="bill-modal">
+                    <div className="bill-modal p-3" ref={componentRef}>
                         <div className="d-flex justify-content-between bill-header pb-2">
                             <div>
                                 <h2>
@@ -156,7 +161,12 @@ function Bills() {
                             </h3>
                         </div>
                         <div className="dotted-border"></div>
+                    </div>
 
+                    <div className="d-flex justify-content-end mt-5">
+                        <Button type="primary" onClick={handlePrint}>
+                            Print Bill
+                        </Button>
                     </div>
                 </Modal>
             )}
