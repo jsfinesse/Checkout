@@ -9,8 +9,8 @@ import "../resources/item.css";
 
 function Bills() {
     const [billsData, setBillsData] = useState([]);
-    const [addEditModalVisible, setAddEditModalVisible] = useState(false);
-    const [editingItem, setEditingItem] = useState(null);
+    const [printBillModalVisible, setPrintBillModalVisible] = useState(false);
+    const [selectedBill, setSelectedBill] = useState(null);
     const dispatch = useDispatch();
 
     const getAllBills = async () => {
@@ -34,6 +34,35 @@ function Bills() {
         getAllBills();
     }, []);
 
+    const cartColumns = [
+        {
+            title: "Name",
+            dataIndex: "name",
+        },
+        {
+            title: "Price",
+            dataIndex: "price",
+        },
+        {
+            title: "Quantity",
+            dataIndex: "_id",
+            render: (id, record) => (
+                <div>
+                    <b>{record.quantity}</b>
+                </div>
+            ),
+        },
+        {
+            title: "Total",
+            dataIndex: "_id",
+            render: (id, record) => (
+                <div>
+                    <b>{record.quantity * record.price}</b>
+                </div>
+            ),
+        },
+    ];
+
     const columns = [
         {
             title: "Bill ID",
@@ -56,7 +85,13 @@ function Bills() {
             dataIndex: "_id",
             render: (id, record) => (
                 <div className="d-flex">
-                    <EyeOutlined className="mx-2" onClick={() => {}} />
+                    <EyeOutlined
+                        className="mx-2"
+                        onClick={() => {
+                            setSelectedBill(record);
+                            setPrintBillModalVisible(true);
+                        }}
+                    />
                 </div>
             ),
         },
@@ -65,26 +100,65 @@ function Bills() {
     return (
         <DefaultLayout>
             <div className="d-flex justify-content-between">
-                <h3>Items</h3>
-                <Button
-                    type="primary"
-                    onClick={() => setAddEditModalVisible(true)}
-                >
-                    Add Item
-                </Button>
+                <h3>Bills</h3>
             </div>
             <Table columns={columns} dataSource={billsData} bordered />
 
-            {addEditModalVisible && (
+            {printBillModalVisible && (
                 <Modal
                     onCancel={() => {
-                        setEditingItem(null);
-                        setAddEditModalVisible(false);
+                        setPrintBillModalVisible(false);
                     }}
-                    visible={addEditModalVisible}
-                    title={`${editingItem !== null ? "Edit Item" : "Add Item"}`}
+                    visible={printBillModalVisible}
+                    title="Bill Details"
                     footer={false}
-                ></Modal>
+                    width={800}
+                >
+                    <div className="bill-modal">
+                        <div className="d-flex justify-content-between bill-header pb-2">
+                            <div>
+                                <h2>
+                                    <b>Checkout</b>
+                                </h2>
+                            </div>
+                            <div>
+                                <p>Mumbai</p>
+                                <p>Contact Details: XXXXX-XXXXX</p>
+                            </div>
+                        </div>
+                        <div className="bill-customer-details my-2">
+                            <p>
+                                <b>Bill ID:</b> {selectedBill._id}
+                            </p>
+                            <p>
+                                <b>Date:</b>{" "}
+                                {selectedBill.createdAt.toString().slice(0, 10)}
+                            </p>
+                        </div>
+                        <Table
+                            dataSource={selectedBill.cartItems}
+                            columns={cartColumns}
+                            pagination={false}
+                        />
+
+                        <div className="dotted-border mt-2 pb-2">
+                            <p>
+                                <b>Subtotal:</b> {selectedBill.subTotal}
+                            </p>
+                            <p>
+                                <b>Tax:</b> {selectedBill.tax}
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3>
+                                <b>Total:</b> {selectedBill.total}
+                            </h3>
+                        </div>
+                        <div className="dotted-border"></div>
+
+                    </div>
+                </Modal>
             )}
         </DefaultLayout>
     );

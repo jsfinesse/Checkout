@@ -59,3 +59,20 @@ input:focus {
 .subtotal h3 {
     color: #2bc2ff;
 }
+
+/* ===========================================================Print Bill Modal Styles */
+
+.bill-header {
+    border-bottom: 2px dashed grey;
+}
+.bill-modal h2 {
+    font-size: 30px;
+}
+.bill-modal p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.dotted-border {
+    border-bottom: 2px dotted grey;
+}
