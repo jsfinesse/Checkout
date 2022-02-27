@@ -7,9 +7,11 @@ const PORT = 5000;
 require("./dbConnection");
 const itemsRoute = require("./routes/itemsRoute");
 const usersRoute = require("./routes/usersRoute");
+const billsRoute = require("./routes/billsRoute")
 
 app.use("/api/items/", itemsRoute);
 app.use("/api/users/", usersRoute);
+app.use("/api/bills/", billsRoute);
 
 app.get("/", (req, res) => res.send("Hello World!"));
 
