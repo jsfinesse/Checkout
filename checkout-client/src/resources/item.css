@@ -74,5 +74,18 @@ input:focus {
 }
 
 .dotted-border {
+    margin: 5px 0;
     border-bottom: 2px dotted grey;
+}
+.bill-modal h3 {
+    margin-bottom: 0;
+}
+
+/* =================================================================== */
+
+@media only screen and (max-width: 600px) {
+    .categories {
+        width: 100%;
+        overflow-x: scroll;
+    }
 }

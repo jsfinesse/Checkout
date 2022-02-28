@@ -146,7 +146,7 @@ function Bills() {
                             pagination={false}
                         />
 
-                        <div className="dotted-border mt-2 pb-2">
+                        <div className="dotted-border">
                             <p>
                                 <b>Subtotal:</b> {selectedBill.subTotal}
                             </p>
