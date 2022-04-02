@@ -15,11 +15,11 @@ app.use("/api/users/", usersRoute);
 app.use("/api/bills/", billsRoute);
 
 if (process.env.NODE_ENV === "production") {
-    app.use("/", express.static("checkout-client/build"));
+    app.use("/", express.static(path.resolve(__dirname,"./checkout-client/build")));
 
     app.get("*", (req, res) => {
         res.sendFile(
-            path.resolve(__dirname, "checkout-client/build/index.html")
+            path.resolve(__dirname, "./checkout-client/build/index.html")
         );
     });
 }

@@ -9,9 +9,12 @@
     },
     "scripts": {
         "dev": "env-cmd -f ./config.env nodemon server.js",
-        "client-install": "npm install --prefix client",
-        "start": "node server.js",
-        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+        "build": "cd checkout-client && npm run build",
+        "install-client": "cd checkout-client && npm install",
+        "server": "node server.js",
+        "heroku-postbuild": "npm run install-client && npm run build",
+        "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+        "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
     },
     "author": "jsfinesse",
     "license": "ISC",
