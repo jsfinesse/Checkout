@@ -9,8 +9,12 @@
     },
     "scripts": {
         "dev": "nodemon server.js",
-        "start": "node server.js",
-        "heroku-postbuild": "cd checkout-client && npm install --only=dev && npm install && npm run build"
+        "build": "cd checkout-client && npm run build",
+        "install-client": "cd checkout-client && npm install",
+        "heroku-postbuild": "npm run install-client && npm run build",
+        "server": "nodemon server.js",
+        "develop": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\"",
+        "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
     },
     "author": "jsfinesse",
     "license": "ISC",
