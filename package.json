@@ -1,20 +1,27 @@
 {
-  "name": "checkout",
-  "version": "1.0.0",
-  "description": "Checkout - POS",
-  "main": "index.js",
-  "scripts": {
-    "dev": "env-cmd -f ./config.env nodemon server.js"
-  },
-  "author": "jsfinesse",
-  "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "express": "^4.17.3",
-    "mongoose": "^6.2.8"
-  },
-  "devDependencies": {
-    "env-cmd": "^10.1.0",
-    "nodemon": "^2.0.15"
-  }
+    "name": "checkout",
+    "version": "1.0.0",
+    "description": "Checkout - POS",
+    "main": "index.js",
+    "engines": {
+        "node": "16.13.1",
+        "npm": "8.5.3"
+    },
+    "scripts": {
+        "dev": "env-cmd -f ./config.env nodemon server.js",
+        "client-install": "npm install --prefix client",
+        "start": "node server.js",
+        "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    },
+    "author": "jsfinesse",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "express": "^4.17.3",
+        "mongoose": "^6.2.8"
+    },
+    "devDependencies": {
+        "env-cmd": "^10.1.0",
+        "nodemon": "^2.0.15"
+    }
 }
