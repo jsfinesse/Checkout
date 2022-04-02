@@ -8,12 +8,9 @@
         "npm": "8.5.3"
     },
     "scripts": {
-        "dev": "env-cmd -f ./config.env nodemon server.js",
-        "build": "cd checkout-client && npm run build",
-        "install-client": "cd checkout-client && npm install",
-        "server": "node server.js",
-        "heroku-postbuild": "npm run install-client && npm run build",
-        "start": "node server.js"
+        "dev": "nodemon server.js",
+        "start": "node server.js",
+        "heroku-postbuild": "cd checkout-client && npm install --only=dev && npm install && npm run build"
     },
     "author": "jsfinesse",
     "license": "ISC",
@@ -24,7 +21,6 @@
         "mongoose": "^6.2.8"
     },
     "devDependencies": {
-        "env-cmd": "^10.1.0",
         "nodemon": "^2.0.15"
     }
 }
