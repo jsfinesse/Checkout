@@ -15,16 +15,12 @@ app.use("/api/items/", itemsRoute);
 app.use("/api/users/", usersRoute);
 app.use("/api/bills/", billsRoute);
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.resolve(__dirname, "./checkout-client/build")));
+app.use(express.static(path.resolve(__dirname, "./checkout-client/build")));
 
-    app.get("*", (req, res) => {
-        res.sendFile(
-            path.resolve(__dirname, "./checkout-client/build", "index.html")
-        );
-    });
-}
-
-app.get("/", (req, res) => res.send("Hello World!"));
+app.get("*", (req, res) => {
+    res.sendFile(
+        path.resolve(__dirname, "./checkout-client/build", "index.html")
+    );
+});
 
 app.listen(PORT, () => console.log("Server is running on port: " + PORT));
