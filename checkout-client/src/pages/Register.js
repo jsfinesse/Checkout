@@ -15,8 +15,9 @@ function Register() {
             await axios.post("/api/users/register", values);
             dispatch({ type: "hideLoading" });
             message.success(
-                "Registered successfully, please wait while we verify you!"
+                "Registered successfully, please continue to login!"
             );
+            navigate("/login");
         } catch (error) {
             dispatch({ type: "hideLoading" });
             message.error("Something went wrong :(");

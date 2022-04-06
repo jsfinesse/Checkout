@@ -12,8 +12,8 @@ router.post("/login", async (req, res) => {
         // });
         const user = await User.findByCredentials(
             req.body.userId,
-            req.body.password,
-            );
+            req.body.password
+        );
         res.send(user);
     } catch (error) {
         res.status(400).send();
@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
 
 router.post("/register", async (req, res) => {
     try {
-        const newUser = new User({ ...req.body, verified: false });
+        const newUser = new User({ ...req.body });
         await newUser.save();
         res.send();
     } catch (error) {
